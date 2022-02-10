@@ -17,7 +17,7 @@ jobs:
       - run:
           name: "Say hello"
           command: |
-             docker build -t omarapp
+             docker build -t omarapp .
              docker run omarapp
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
